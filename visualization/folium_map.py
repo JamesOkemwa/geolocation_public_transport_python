@@ -1,4 +1,5 @@
 import folium
+from folium.plugins import MarkerCluster
 import pandas as pd
 
 
@@ -16,9 +17,18 @@ def create_map():
 
     m = folium.Map(location=(51.96, 7.62), tiles="cartodb positron", zoom_start=12)
 
+    marker_cluster = MarkerCluster(
+        name='1000 clustered icons',
+        overlay=True,
+        control=False,
+        icon_create_function=None
+    )
+
     stops_df = load_bus_stops()
     for index, bus_stop in stops_df.iterrows():
         bus_stop_coords = [bus_stop['stop_lat'], bus_stop['stop_lon']]
-        folium.Marker(location=bus_stop_coords, popup=bus_stop['stop_name']).add_to(m)
+        marker = folium.Marker(location=bus_stop_coords, popup=bus_stop['stop_name']).add_to(marker_cluster)
+
+    marker_cluster.add_to(m)
 
     return m
