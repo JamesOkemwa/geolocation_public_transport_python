@@ -1,5 +1,5 @@
 import folium
-from folium_map import create_map
+from .folium_map import create_map
 
 def display_map():
     """
@@ -8,5 +8,3 @@ def display_map():
 
     munster_map = create_map()
     munster_map.show_in_browser()
-
-display_map()
