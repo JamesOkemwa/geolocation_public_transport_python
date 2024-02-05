@@ -1,5 +1,5 @@
 import folium
-from folium.plugins import MarkerCluster
+from folium.plugins import MarkerCluster, LocateControl
 import pandas as pd
 
 
@@ -30,5 +30,8 @@ def create_map():
         marker = folium.Marker(location=bus_stop_coords, popup=bus_stop['stop_name']).add_to(marker_cluster)
 
     marker_cluster.add_to(m)
+
+    # add geolocation control
+    geolocation = LocateControl(auto_start=True).add_to(m)
 
     return m
